@@ -1,0 +1,35 @@
+<?php
+
+namespace App\Models;
+
+use App\Enums\GenderEnum;
+use App\Enums\MaritalStatusEnum;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Patient extends Model
+{
+    use HasFactory, SoftDeletes;
+
+    protected $fillable = [
+        'name',
+        'surname',
+        'birth_at',
+        'phone',
+        'gender',
+        'marital_status',
+        'email',
+        'allergies',
+        'address',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'birth_at' => 'date',
+            'gender' => GenderEnum::class,
+            'marital_status' => MaritalStatusEnum::class,
+        ];
+    }
+}
