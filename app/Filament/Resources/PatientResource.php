@@ -2,30 +2,28 @@
 
 namespace App\Filament\Resources;
 
-use App\Models\Patient;
-use Filament\Forms\Form;
 use App\Enums\GenderEnum;
-use Filament\Tables\Table;
-use Filament\Resources\Resource;
 use App\Enums\MaritalStatusEnum;
-use Filament\Forms\Components\Radio;
-use Filament\Forms\Components\Select;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Forms\Components\CheckboxList;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\DatePicker;
-use Filament\Tables\Actions\DeleteAction;
-use Illuminate\Database\Eloquent\Builder;
-use Filament\Forms\Components\Placeholder;
-use Filament\Tables\Actions\RestoreAction;
-use Filament\Tables\Filters\TrashedFilter;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use Filament\Tables\Actions\ForceDeleteAction;
-use Filament\Tables\Actions\RestoreBulkAction;
 use App\Filament\Resources\PatientResource\Pages;
+use App\Models\Patient;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Placeholder;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Form;
+use Filament\Resources\Resource;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
+use Filament\Tables\Actions\RestoreAction;
+use Filament\Tables\Actions\RestoreBulkAction;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\TrashedFilter;
+use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PatientResource extends Resource
@@ -71,11 +69,11 @@ class PatientResource extends Resource
 
                 Placeholder::make('created_at')
                     ->label('Created Date')
-                    ->content(fn(?Patient $record): string => $record?->created_at?->diffForHumans() ?? '-'),
+                    ->content(fn (?Patient $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
                 Placeholder::make('updated_at')
                     ->label('Last Modified Date')
-                    ->content(fn(?Patient $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ->content(fn (?Patient $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
             ]);
     }
 

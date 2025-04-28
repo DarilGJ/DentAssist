@@ -29,7 +29,7 @@ class UserController extends Controller implements HasMiddleware
     {
         return response()->json([
             'message' => 'Users List',
-            'data' => User::all()
+            'data' => User::all(),
         ]);
     }
 
@@ -44,16 +44,16 @@ class UserController extends Controller implements HasMiddleware
         ]);
 
         User::query()->create([
-           'name' => $request->get('name'),
-           'email' => $request->get('email'),
-           'password' => Hash::make( $password = Str::random(12)),
+            'name' => $request->get('name'),
+            'email' => $request->get('email'),
+            'password' => Hash::make($password = Str::random(12)),
         ]);
 
         return response()->json([
             'message' => 'User Created',
             'data' => [
-                'password' => $password
-            ]
+                'password' => $password,
+            ],
         ], Response::HTTP_CREATED);
     }
 
@@ -64,7 +64,7 @@ class UserController extends Controller implements HasMiddleware
     {
         return response()->json([
             'message' => 'User',
-            'data' => $user
+            'data' => $user,
         ]);
     }
 
@@ -75,7 +75,7 @@ class UserController extends Controller implements HasMiddleware
     {
         $request->validate([
             'name' => 'string',
-            'email' => 'string|email'
+            'email' => 'string|email',
         ]);
 
         $user->update([

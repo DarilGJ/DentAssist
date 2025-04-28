@@ -2,11 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Patient;
 use App\Enums\GenderEnum;
-use Illuminate\Support\Carbon;
 use App\Enums\MaritalStatusEnum;
+use App\Models\Patient;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Carbon;
 
 class PatientFactory extends Factory
 {
@@ -23,7 +23,7 @@ class PatientFactory extends Factory
             'marital_status' => $this->faker->randomElement(MaritalStatusEnum::getValuesToArray()),
             'email' => $this->faker->unique()->safeEmail(),
             'allergies' => $this->faker->word(),
-            'address' => $this->faker->address()
+            'address' => $this->faker->address(),
         ];
     }
 }

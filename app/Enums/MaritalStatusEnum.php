@@ -17,7 +17,7 @@ enum MaritalStatusEnum: string
             self::Single->value,
             self::Divorced->value,
             self::Widowed->value,
-            self::Separated->value
+            self::Separated->value,
         ];
     }
 }
