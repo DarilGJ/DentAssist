@@ -13,10 +13,12 @@ enum AppointmentTypeEnum: string
     public static function getValuesToArray(): array
     {
         return [
+
             self::Consult->value,
             self::Treatment->value,
             self::Control->value,
             self::Urgent->value,
+
         ];
     }
 }

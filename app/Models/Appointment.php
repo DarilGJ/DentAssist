@@ -31,6 +31,7 @@ class Appointment extends Model
             'status' => AppointmentStatusEnum::class,
         ];
     }
+
     public function patient(): BelongsTo
     {
         return $this->belongsTo(Patient::class);

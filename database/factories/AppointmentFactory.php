@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class AppointmentFactory extends Factory
 {
-
     protected $model = Appointment::class;
 
     public function definition(): array

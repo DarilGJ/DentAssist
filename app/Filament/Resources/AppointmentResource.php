@@ -12,11 +12,9 @@ use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -73,17 +71,19 @@ class AppointmentResource extends Resource
 
                 Placeholder::make('created_at')
                     ->label('Creado')
-                    ->content(fn(?Appointment $record): string => $record?->created_at?->diffForHumans() ?? '-'),
+                    ->content(fn (?Appointment $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
                 Placeholder::make('updated_at')
                     ->label('Actualizado')
-                    ->content(fn(?Appointment $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
+                    ->content(fn (?Appointment $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
             ]);
     }
 
     public static function table(Table $table): Table
     {
+
         return $table
+
             ->columns([
                 //
                 TextColumn::make('patient.name')
@@ -134,10 +134,12 @@ class AppointmentResource extends Resource
 
     public static function getPages(): array
     {
+
         return [
             'index' => Pages\ListAppointments::route('/'),
             'create' => Pages\CreateAppointment::route('/create'),
             'edit' => Pages\EditAppointment::route('/{record}/edit'),
+
         ];
     }
 

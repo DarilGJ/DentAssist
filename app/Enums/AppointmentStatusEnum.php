@@ -15,6 +15,7 @@ enum AppointmentStatusEnum: string
 
     public static function getValuesToArray(): array
     {
+
         return [
             self::Scheduled->value,
             self::Rescheduled->value,
@@ -23,6 +24,7 @@ enum AppointmentStatusEnum: string
             self::Ended->value,
             self::Cancelled->value,
             self::DidNotAttend->value,
+
         ];
     }
 }
