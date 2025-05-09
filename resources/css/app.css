@@ -64,27 +64,3 @@ select:focus[data-flux-control] {
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */
-
-/* Estilos base para inputs */
-.input {
-    @apply mt-1 block w-full rounded-md border border-gray-300 bg-white text-gray-900 shadow-sm
-           focus:ring-blue-500 focus:border-blue-500;
-}
-
-/* Modo oscuro */
-.dark .input {
-    @apply bg-zinc-800 border-zinc-700 text-white placeholder-zinc-400;
-}
-
-/* Estilo explícito para modo oscuro */
-.dark .bg-white {
-    background-color: #000000bb  !important;
-    color: white !important;
-}
-
-.dark h1,
-.dark h2,
-.dark h3,
-.dark label {
-    color: white !important;
-}

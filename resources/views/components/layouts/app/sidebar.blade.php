@@ -2,7 +2,6 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
     <head>
         @include('partials.head')
-        @yield('styles')
     </head>
     <body class="min-h-screen bg-white dark:bg-zinc-800">
         <flux:sidebar sticky stashable class="border-e border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900">
@@ -15,14 +14,6 @@
             <flux:navlist variant="outline">
                 <flux:navlist.group :heading="__('Platform')" class="grid">
                     <flux:navlist.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
-                    <flux:navlist.item
-                    icon="clipboard-document-check"
-                    :href="route('expedientes.create')"
-                    :current="request()->routeIs('expedientes.create')"
-                    wire:navigate>
-                    {{ __('Registrar Expedientes') }}
-                </flux:navlist.item>
-
                 </flux:navlist.group>
             </flux:navlist>
 
