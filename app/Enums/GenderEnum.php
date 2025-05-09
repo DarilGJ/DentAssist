@@ -16,7 +16,7 @@ enum GenderEnum: string implements HasColor
         return [
             self::Male->value,
             self::Female->value,
-            self::Other->value
+            self::Other->value,
         ];
     }
 

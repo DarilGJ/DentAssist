@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources\PatientResource\Pages;
 
-use Filament\Actions\DeleteAction;
-use Filament\Actions\RestoreAction;
-use Filament\Actions\ForceDeleteAction;
-use Filament\Resources\Pages\EditRecord;
 use App\Filament\Resources\PatientResource;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\RestoreAction;
+use Filament\Resources\Pages\EditRecord;
 
 class EditPatient extends EditRecord
 {

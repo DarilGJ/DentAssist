@@ -13,21 +13,21 @@ class AuthController extends Controller
     {
         $request->validate([
             'email' => 'required|string|email',
-            'password' => 'required|string'
+            'password' => 'required|string',
         ]);
 
         $credentials = request(['email', 'password']);
 
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             return response()->json([
-                'message' => 'Unauthorized'
+                'message' => 'Unauthorized',
             ], Response::HTTP_UNAUTHORIZED);
         }
 
         return response()->json([
             'message' => 'Success login',
             'data' => $user = Auth::user(),
-            'token' => $user->createToken($request->userAgent())->plainTextToken
+            'token' => $user->createToken($request->userAgent())->plainTextToken,
         ]);
     }
 }

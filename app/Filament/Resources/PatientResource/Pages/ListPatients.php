@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\PatientResource\Pages;
 
+use App\Filament\Resources\PatientResource;
 use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
-use App\Filament\Resources\PatientResource;
 
 class ListPatients extends ListRecords
 {

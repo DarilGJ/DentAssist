@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\PatientResource\Pages;
 
-use Filament\Resources\Pages\CreateRecord;
 use App\Filament\Resources\PatientResource;
+use Filament\Resources\Pages\CreateRecord;
 
 class CreatePatient extends CreateRecord
 {
