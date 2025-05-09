@@ -5,10 +5,10 @@ namespace App\Enums;
 enum AppointmentTypeEnum: string
 {
     //
-    case Consult = 'Consult';
-    case Treatment = 'Treatment';
-    case Control = 'Control';
-    case Urgent = 'Urgent';
+    case Consult = 'consult';
+    case Treatment = 'treatment';
+    case Control = 'control';
+    case Urgent = 'urgent';
 
     public static function getValuesToArray(): array
     {

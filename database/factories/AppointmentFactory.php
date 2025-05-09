@@ -9,16 +9,9 @@ use App\Models\Patient;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Appointment>
- */
 class AppointmentFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+
     protected $model = Appointment::class;
 
     public function definition(): array
@@ -28,9 +21,9 @@ class AppointmentFactory extends Factory
             'user_id' => User::factory(),
             'date_at' => $this->faker->date(),
             'hour_in' => $this->faker->time(),
-            'type' => $this->faker->randomElement([AppointmentTypeEnum::getValuesToArray()]),
+            'type' => $this->faker->randomElement(AppointmentTypeEnum::getValuesToArray()),
             'reason' => $this->faker->text(),
-            'status' => $this->faker->randomElement([AppointmentStatusEnum::getValuesToArray()]),
+            'status' => $this->faker->randomElement(AppointmentStatusEnum::getValuesToArray()),
         ];
     }
 }

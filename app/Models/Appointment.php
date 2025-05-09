@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\AppointmentStatusEnum;
+use App\Enums\AppointmentTypeEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Appointment extends Model
 {
-    /** @use HasFactory<\Database\Factories\AppointmentFactory> */
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
@@ -22,6 +23,14 @@ class Appointment extends Model
         'status',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'date_at' => 'date',
+            'type' => AppointmentTypeEnum::class,
+            'status' => AppointmentStatusEnum::class,
+        ];
+    }
     public function patient(): BelongsTo
     {
         return $this->belongsTo(Patient::class);

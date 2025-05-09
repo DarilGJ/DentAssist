@@ -5,24 +5,24 @@ namespace App\Enums;
 enum AppointmentStatusEnum: string
 {
     //
-    case Scheduled = 'Programada';
-    case Rescheduled = 'Reprogramada';
-    case Confirmed = 'Confirmada';
-    case InProgress = 'En Curso';
-    case Ended = 'Finalizada';
-    case Cancelled = 'Cancelada';
-    case DidNotAttend = 'Ausente';
+    case Scheduled = 'scheduled';
+    case Rescheduled = 'rescheduled';
+    case Confirmed = 'confirmed';
+    case InProgress = 'inProgress';
+    case Ended = 'ended';
+    case Cancelled = 'cancelled';
+    case DidNotAttend = 'didNotAttend';
 
     public static function getValuesToArray(): array
     {
         return [
-            self::Scheduled,
-            self::Rescheduled,
-            self::Confirmed,
-            self::InProgress,
-            self::Ended,
-            self::Cancelled,
-            self::DidNotAttend,
+            self::Scheduled->value,
+            self::Rescheduled->value,
+            self::Confirmed->value,
+            self::InProgress->value,
+            self::Ended->value,
+            self::Cancelled->value,
+            self::DidNotAttend->value,
         ];
     }
 }
