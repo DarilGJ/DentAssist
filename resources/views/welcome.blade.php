@@ -58,7 +58,15 @@
         @if (Route::has('login'))
             <div class="mt-8">
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-lg transition duration-300">Dashboard</a>
+                    <a href="{{ url('/dashboard') }}" class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-lg transition duration-300">App</a>
+                    @if(auth()->user()->role == \App\Enums\RoleEnum::admin
+                            || auth()->user()->role == \App\Enums\RoleEnum::clinic)
+                        <a href="{{ url('/clinic') }}" class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-lg transition duration-300">Clinic</a>
+                    @endif
+
+                    @if(auth()->user()->role == \App\Enums\RoleEnum::admin)
+                        <a href="{{ url('/admin') }}" class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-lg transition duration-300">Admin</a>
+                    @endif
                 @else
                     <a href="{{ route('login') }}" class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-lg transition duration-300">Iniciar Sesión</a>
 
