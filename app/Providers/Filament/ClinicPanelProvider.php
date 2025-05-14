@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+// use App\Filament\Clinic\Widgets\CalendarAppointmentWidget;
 use App\Filament\Resources\AppointmentResource;
 use App\Filament\Resources\PatientResource;
 use Filament\Http\Middleware\Authenticate;
@@ -19,6 +20,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Saade\FilamentFullCalendar\FilamentFullCalendarPlugin;
 
 class ClinicPanelProvider extends PanelProvider
 {
@@ -57,6 +59,10 @@ class ClinicPanelProvider extends PanelProvider
             ->resources([
                 PatientResource::class,
                 AppointmentResource::class,
-            ]);
+            ])
+            ->plugin(
+                FilamentFullCalendarPlugin::make()
+                    ->locale('es')
+            );
     }
 }
