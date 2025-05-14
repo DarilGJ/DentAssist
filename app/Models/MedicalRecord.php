@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class MedicalRecord extends Model
 {
-    /** @use HasFactory<\Database\Factories\MedicalRecordFactory> */
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
@@ -21,14 +20,19 @@ class MedicalRecord extends Model
         'xray',
         'photo',
     ];
-    public function appointment(): BelongsTo{
+
+    public function appointment(): BelongsTo
+    {
         return $this->belongsTo(Appointment::class);
     }
-    public function patient(): BelongsTo{
+
+    public function patient(): BelongsTo
+    {
         return $this->belongsTo(Patient::class);
     }
-    public function user(): BelongsTo{
+
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
-
 }

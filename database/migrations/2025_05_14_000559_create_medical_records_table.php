@@ -1,5 +1,8 @@
 <?php
 
+use App\Models\Appointment;
+use App\Models\Patient;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,14 +16,15 @@ return new class extends Migration
     {
         Schema::create('medical_records', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor('appointment_id');
-            $table->foreignIdFor('patient_id');
-            $table->foreignIdFor('user_id');
+            $table->foreignIdFor(Appointment::class);
+            $table->foreignIdFor(Patient::class);
+            $table->foreignIdFor(User::class);
             $table->string('diagnosis');
             $table->string('treatment');
-            $table->string('xrays');
-            $table->string('photos');
+            $table->string('xray');
+            $table->string('photo');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
