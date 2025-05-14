@@ -29,55 +29,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+
 class AppointmentResource extends Resource
 {
     protected static ?string $model = Appointment::class;
-
     protected static ?string $slug = 'appointments';
+    protected static ?string $navigationIcon = 'iconsax-two-calendar-edit';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Select::make('patient_id')
-                    ->label('Nombre')
-                    ->options(Patient::all()->pluck('name', 'id'))
-                    ->searchable(),
-
-                Hidden::make('user_id')
-                    ->default(auth()->id()),
-
-                DatePicker::make('date_at')
-                    ->label('Fecha'),
-
-                TimePicker::make('hour_in')
-                    ->label('Hora'),
-
-                Select::make('type')
-                    ->label('Tipo de Cita')
-                    ->options(AppointmentTypeEnum::class)
-                    ->required(),
-
-                TextArea::make('reason')
-                    ->label('Descripcion')
-                    ->required(),
-
-                Select::make('status')
-                    ->label('Estado de Cita')
-                    ->options(AppointmentStatusEnum::class)
-                    ->required(),
-
-                Placeholder::make('created_at')
-                    ->label('Creado')
-                    ->content(fn (?Appointment $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                Placeholder::make('updated_at')
-                    ->label('Actualizado')
-                    ->content(fn (?Appointment $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
-            ]);
-    }
 
     public static function table(Table $table): Table
     {
@@ -87,6 +45,7 @@ class AppointmentResource extends Resource
             ->columns([
                 //
                 TextColumn::make('patient.name')
+                    ->label(__('Paciente'))
                     ->searchable()
                     ->sortable(),
 
@@ -99,11 +58,14 @@ class AppointmentResource extends Resource
                     ->date(),
 
                 TextColumn::make('type')
+                    ->label('Tipo')
                     ->badge(),
 
-                TextColumn::make('reason'),
+                TextColumn::make('reason')
+                ->label('Observaciones'),
 
                 TextColumn::make('status')
+                    ->label('Estado de Cita')
                     ->badge(),
 
             ])
@@ -149,5 +111,9 @@ class AppointmentResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+    public static function getModelLabel(): string
+    {
+        return 'Citas';
     }
 }
