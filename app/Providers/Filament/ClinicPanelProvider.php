@@ -60,9 +60,9 @@ class ClinicPanelProvider extends PanelProvider
                 PatientResource::class,
                 AppointmentResource::class,
             ])
-            ->plugin(
-                FilamentFullCalendarPlugin::make()
-                    ->locale('es')
-            );
+            ->plugins([
+                FilamentFullCalendarPlugin::make()->locale('es'),
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
+            ]);
     }
 }
