@@ -21,7 +21,7 @@ use Filament\Tables\Actions\DeleteBulkAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ForceDeleteAction;
 use Filament\Tables\Actions\ForceDeleteBulkAction;
-use Filament\Tables\Actions\restoreAction;
+use Filament\Tables\Actions\RestoreAction;
 use Filament\Tables\Actions\RestoreBulkAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
@@ -113,7 +113,7 @@ class AppointmentResource extends Resource
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
-                restoreAction::make(),
+                RestoreAction::make(),
                 ForceDeleteAction::make(),
             ])
             ->bulkActions([
