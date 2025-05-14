@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\RoleEnum;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -17,11 +18,11 @@ class InitProjectDataSeeder extends Seeder
 
         // Patient and Clinic accounts
         User::factory()->count(10)->create([
-            'role' => 'patient',
+            'role' => RoleEnum::patient,
         ]);
 
         User::factory()->count(2)->create([
-            'role' => 'clinic',
+            'role' => RoleEnum::clinic,
         ]);
     }
 }
