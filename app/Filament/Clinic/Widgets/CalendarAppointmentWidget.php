@@ -7,19 +7,19 @@ use App\Enums\AppointmentTypeEnum;
 use App\Filament\Resources\AppointmentResource;
 use App\Models\Appointment;
 use Carbon\Carbon;
+use Filament\Actions;
+use Filament\Forms;
 use Illuminate\Database\Eloquent\Model;
 use Saade\FilamentFullCalendar\Widgets\FullCalendarWidget;
-use Filament\Forms;
-use Filament\Actions;
 
 class CalendarAppointmentWidget extends FullCalendarWidget
 {
     public string|null|Model $model = Appointment::class;
 
-    public function fetchEvents(array $fetchInfo): array
+    public function fetchEvents(array $info): array
     {
         return Appointment::query()
-            ->where('date_at', '>=', $fetchInfo['start'])
+            ->where('date_at', '>=', $info['start'])
             ->with('patient')
             ->get()
             ->map(fn (Appointment $appointment) => [
