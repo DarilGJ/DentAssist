@@ -63,7 +63,7 @@ class User extends Authenticatable
             ->implode('');
     }
 
-    public function Appointments(): HasMany
+    public function appointments(): HasMany
     {
         return $this->hasMany(Appointment::class);
     }
