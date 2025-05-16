@@ -15,12 +15,14 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationLabel = 'Usuarios';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
@@ -28,6 +30,7 @@ class UserResource extends Resource
                     ->email()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
+                    ->label('Contraseña')
                     ->password()
                     ->required()
                     ->maxLength(255)
@@ -44,15 +47,18 @@ class UserResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('role')
+                    ->label('Rol')
                     ->sortable()
                     ->badge(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado')
                     ->sortable()
                     ->searchable()
                     ->dateTime(),
@@ -84,5 +90,9 @@ class UserResource extends Resource
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
+    }
+    public static function getModelLabel(): string
+    {
+        return 'Usuarios';
     }
 }
