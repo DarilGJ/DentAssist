@@ -37,6 +37,7 @@ class EditAppointment extends EditRecord
 
                 DatePicker::make('date_at')
                     ->label('Fecha')
+                    ->minDate(now())
                     ->required(),
 
                 TimePicker::make('hour_in')
