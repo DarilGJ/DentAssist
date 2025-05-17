@@ -19,7 +19,9 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAppointment extends CreateRecord
 {
     protected static string $resource = AppointmentResource::class;
+
     protected static ?string $navigationLabel = 'Crear Cita';
+
     public function form(Form $form): Form
     {
         return $form
@@ -52,7 +54,7 @@ class CreateAppointment extends CreateRecord
 
                 Select::make('status')
                     ->label('Estado de Cita')
-                    //->options(AppointmentStatusEnum::class)
+                    // ->options(AppointmentStatusEnum::class)
                     ->options(AppointmentStatusEnum::getCreatOptions())
                     ->required(),
 
@@ -65,6 +67,7 @@ class CreateAppointment extends CreateRecord
                     ->content(fn (?Appointment $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
             ]);
     }
+
     public static function getModelLabel(): string
     {
         return 'Crear Cita';

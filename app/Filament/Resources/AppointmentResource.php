@@ -2,18 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\AppointmentStatusEnum;
-use App\Enums\AppointmentTypeEnum;
 use App\Filament\Resources\AppointmentResource\Pages;
 use App\Models\Appointment;
-use App\Models\Patient;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TimePicker;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -29,13 +19,13 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-
 class AppointmentResource extends Resource
 {
     protected static ?string $model = Appointment::class;
-    protected static ?string $slug = 'appointments';
-    protected static ?string $navigationIcon = 'iconsax-two-calendar-edit';
 
+    protected static ?string $slug = 'appointments';
+
+    protected static ?string $navigationIcon = 'iconsax-two-calendar-edit';
 
     public static function table(Table $table): Table
     {
@@ -62,7 +52,7 @@ class AppointmentResource extends Resource
                     ->badge(),
 
                 TextColumn::make('reason')
-                ->label('Observaciones'),
+                    ->label('Observaciones'),
 
                 TextColumn::make('status')
                     ->label('Estado de Cita')
@@ -112,6 +102,7 @@ class AppointmentResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
+
     public static function getModelLabel(): string
     {
         return 'Citas';

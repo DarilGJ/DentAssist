@@ -3,15 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MedicalRecordResource\Pages;
-use App\Models\Appointment;
 use App\Models\MedicalRecord;
-use App\Models\Patient;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkActionGroup;
@@ -32,10 +24,10 @@ class MedicalRecordResource extends Resource
     protected static ?string $model = MedicalRecord::class;
 
     protected static ?string $slug = 'medical-record';
+
     protected static ?string $navigationLabel = 'Expediente Medico';
 
     protected static ?string $navigationIcon = 'heroicon-m-clipboard-document-list';
-
 
     public static function table(Table $table): Table
     {
@@ -53,16 +45,16 @@ class MedicalRecordResource extends Resource
                     ->sortable(),
 
                 TextColumn::make('diagnosis')
-                ->label('Diagnostico'),
+                    ->label('Diagnostico'),
 
                 TextColumn::make('treatment')
-                ->label('Tratamiento'),
+                    ->label('Tratamiento'),
 
                 TextColumn::make('xray')
-                ->label('Rayos X'),
+                    ->label('Rayos X'),
 
                 TextColumn::make('photo')
-                ->label('Fotos'),
+                    ->label('Fotos'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -105,6 +97,7 @@ class MedicalRecordResource extends Resource
                 SoftDeletingScope::class,
             ]);
     }
+
     public static function getModelLabel(): string
     {
         return 'Expedientes Medicos';

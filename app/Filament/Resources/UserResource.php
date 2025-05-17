@@ -15,6 +15,7 @@ class UserResource extends Resource
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
+
     protected static ?string $navigationLabel = 'Usuarios';
 
     public static function form(Form $form): Form
@@ -91,6 +92,7 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
+
     public static function getModelLabel(): string
     {
         return 'Usuarios';

@@ -31,6 +31,7 @@ class PatientResource extends Resource
     protected static ?string $model = Patient::class;
 
     protected static ?string $slug = 'patients';
+
     protected static ?string $navigationLabel = 'Pacientes';
 
     protected static ?string $navigationIcon = 'heroicon-m-user-group';
@@ -95,14 +96,14 @@ class PatientResource extends Resource
                     ->sortable(),
 
                 TextColumn::make('surname')
-                ->label('Apellido'),
+                    ->label('Apellido'),
 
                 TextColumn::make('birth_at')
                     ->label('Fecha de Nacimiento')
                     ->date(),
 
                 TextColumn::make('phone')
-                ->label('Telefono'),
+                    ->label('Telefono'),
 
                 TextColumn::make('gender')
                     ->label('Genero')
@@ -117,10 +118,10 @@ class PatientResource extends Resource
                     ->sortable(),
 
                 TextColumn::make('allergies')
-                ->label('Alergias'),
+                    ->label('Alergias'),
 
                 TextColumn::make('address')
-                ->label('Direccion'),
+                    ->label('Direccion'),
             ])
             ->filters([
                 TrashedFilter::make(),
@@ -161,6 +162,7 @@ class PatientResource extends Resource
     {
         return ['name', 'email'];
     }
+
     public static function getModelLabel(): string
     {
         return 'Pacientes';

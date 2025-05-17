@@ -22,10 +22,10 @@ class CreateMedicalRecord extends CreateRecord
         return $form
             ->schema([
 
-//                Hidden::make('appointment_id')
-//                   ->label('No. Cita')
-//                    ->options(Appointment::all()->pluck('id', 'id'))
-//                    ->searchable(),
+                //                Hidden::make('appointment_id')
+                //                   ->label('No. Cita')
+                //                    ->options(Appointment::all()->pluck('id', 'id'))
+                //                    ->searchable(),
 
                 Select::make('patient_id')
                     ->label('Paciente')

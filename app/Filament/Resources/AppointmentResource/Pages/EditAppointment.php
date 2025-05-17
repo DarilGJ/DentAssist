@@ -16,8 +16,6 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\EditRecord;
-use Filament\Tables\Columns\TextColumn;
-use phpDocumentor\Reflection\Types\False_;
 
 class EditAppointment extends EditRecord
 {

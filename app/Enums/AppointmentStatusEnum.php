@@ -15,37 +15,39 @@ enum AppointmentStatusEnum: string implements HasLabel
     case Cancelled = 'cancelled';
     case DidNotAttend = 'didNotAttend';
 
-//    public static function getValuesToArray(): array
-//    {
-//
-//        return [
-//            self::Scheduled->value,
-//            self::Rescheduled->value,
-//            self::Confirmed->value,
-//            self::InProgress->value,
-//            self::Ended->value,
-//            self::Cancelled->value,
-//            self::DidNotAttend->value,
-//
-//        ];
-//    }
+    //    public static function getValuesToArray(): array
+    //    {
+    //
+    //        return [
+    //            self::Scheduled->value,
+    //            self::Rescheduled->value,
+    //            self::Confirmed->value,
+    //            self::InProgress->value,
+    //            self::Ended->value,
+    //            self::Cancelled->value,
+    //            self::DidNotAttend->value,
+    //
+    //        ];
+    //    }
 
     public static function getCreatOptions(): array
     {
         return [
             self::Scheduled->value => 'Programada',
-            self::Confirmed->value=> ('Confirmada'),
+            self::Confirmed->value => ('Confirmada'),
         ];
     }
+
     public static function getEditOptions(): array
     {
         return [
-            self::Rescheduled->value=> ('Reprogramada'),
-            self::Confirmed->value=> ('Confirmada'),
-            self::InProgress->value=> ('En Progreso'),
-            self::Cancelled->value=> ('Cancelada'),
+            self::Rescheduled->value => ('Reprogramada'),
+            self::Confirmed->value => ('Confirmada'),
+            self::InProgress->value => ('En Progreso'),
+            self::Cancelled->value => ('Cancelada'),
         ];
     }
+
     public function getLabel(): ?string
     {
         return match ($this) {
