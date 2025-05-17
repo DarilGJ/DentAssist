@@ -3,15 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\MedicalRecordResource\Pages;
-use App\Models\Appointment;
 use App\Models\MedicalRecord;
-use App\Models\Patient;
-use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkActionGroup;
@@ -33,49 +25,9 @@ class MedicalRecordResource extends Resource
 
     protected static ?string $slug = 'medical-record';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Expediente Medico';
 
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-
-                Select::make('appointment_id')
-                    ->label('Cita')
-                    ->options(Appointment::all()->pluck('id', 'id'))
-                    ->searchable(),
-
-                Select::make('patient_id')
-                    ->label('Nombre')
-                    ->options(Patient::all()->pluck('name', 'id'))
-                    ->searchable(),
-
-                Hidden::make('user_id')
-                    ->default(auth()->id()),
-
-                TextArea::make('diagnosis')
-                    ->label('Diagnostico')
-                    ->required(),
-
-                TextArea::make('treatment')
-                    ->label('Tratamiento')
-                    ->required(),
-
-                FileUpload::make('xray')
-                    ->label('Xrays'),
-
-                FileUpload::make('photo')
-                    ->label('Fotos'),
-
-                Placeholder::make('created_at')
-                    ->label('Creado')
-                    ->content(fn (?MedicalRecord $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                Placeholder::make('updated_at')
-                    ->label('Actualizado')
-                    ->content(fn (?MedicalRecord $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
-            ]);
-    }
+    protected static ?string $navigationIcon = 'heroicon-m-clipboard-document-list';
 
     public static function table(Table $table): Table
     {
@@ -83,20 +35,26 @@ class MedicalRecordResource extends Resource
             ->columns([
                 //
                 TextColumn::make('appointment.id')
+                    ->label('No. Cita')
                     ->searchable()
                     ->sortable(),
 
                 TextColumn::make('patient.name')
+                    ->label('Paciente')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('diagnosis'),
+                TextColumn::make('diagnosis')
+                    ->label('Diagnostico'),
 
-                TextColumn::make('treatment'),
+                TextColumn::make('treatment')
+                    ->label('Tratamiento'),
 
-                TextColumn::make('xray'),
+                TextColumn::make('xray')
+                    ->label('Rayos X'),
 
-                TextColumn::make('photo'),
+                TextColumn::make('photo')
+                    ->label('Fotos'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -138,5 +96,10 @@ class MedicalRecordResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Expedientes Medicos';
     }
 }

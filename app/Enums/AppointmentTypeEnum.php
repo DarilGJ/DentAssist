@@ -2,7 +2,9 @@
 
 namespace App\Enums;
 
-enum AppointmentTypeEnum: string
+use Filament\Support\Contracts\HasLabel;
+
+enum AppointmentTypeEnum: string implements HasLabel
 {
     //
     case Consult = 'consult';
@@ -20,5 +22,15 @@ enum AppointmentTypeEnum: string
             self::Urgent->value,
 
         ];
+    }
+
+    public function getLabel(): ?string
+    {
+        return match ($this) {
+            self::Consult => __('Consulta'),
+            self::Treatment => __('Tratamiento'),
+            self::Control => __('Control'),
+            self::Urgent => __('Urgente'),
+        };
     }
 }

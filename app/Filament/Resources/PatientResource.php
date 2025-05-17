@@ -32,29 +32,36 @@ class PatientResource extends Resource
 
     protected static ?string $slug = 'patients';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'Pacientes';
+
+    protected static ?string $navigationIcon = 'heroicon-m-user-group';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 TextInput::make('name')
+                    ->label('Nombre')
                     ->required(),
 
                 TextInput::make('surname')
+                    ->label('Apellido')
                     ->required(),
 
                 DatePicker::make('birth_at')
-                    ->label('Birth Date'),
+                    ->label('Fecha de Nacimiento'),
 
                 TextInput::make('phone')
+                    ->label('Telefono')
                     ->required(),
 
                 Select::make('gender')
+                    ->label('Genero')
                     ->options(GenderEnum::class)
                     ->required(),
 
                 Select::make('marital_status')
+                    ->label('Estado Civil')
                     ->options(MaritalStatusEnum::class)
                     ->required(),
 
@@ -62,17 +69,19 @@ class PatientResource extends Resource
                     ->required(),
 
                 TextInput::make('allergies')
+                    ->label('Alergias')
                     ->required(),
 
                 TextInput::make('address')
+                    ->label('Direccion')
                     ->required(),
 
                 Placeholder::make('created_at')
-                    ->label('Created Date')
+                    ->label('Creado')
                     ->content(fn (?Patient $record): string => $record?->created_at?->diffForHumans() ?? '-'),
 
                 Placeholder::make('updated_at')
-                    ->label('Last Modified Date')
+                    ->label('Modificado')
                     ->content(fn (?Patient $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
             ]);
     }
@@ -82,30 +91,37 @@ class PatientResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('surname'),
+                TextColumn::make('surname')
+                    ->label('Apellido'),
 
                 TextColumn::make('birth_at')
-                    ->label('Birth Date')
+                    ->label('Fecha de Nacimiento')
                     ->date(),
 
-                TextColumn::make('phone'),
+                TextColumn::make('phone')
+                    ->label('Telefono'),
 
                 TextColumn::make('gender')
+                    ->label('Genero')
                     ->badge(),
 
                 TextColumn::make('marital_status')
+                    ->label('Estado Civil')
                     ->badge(),
 
                 TextColumn::make('email')
                     ->searchable()
                     ->sortable(),
 
-                TextColumn::make('allergies'),
+                TextColumn::make('allergies')
+                    ->label('Alergias'),
 
-                TextColumn::make('address'),
+                TextColumn::make('address')
+                    ->label('Direccion'),
             ])
             ->filters([
                 TrashedFilter::make(),
@@ -145,5 +161,10 @@ class PatientResource extends Resource
     public static function getGloballySearchableAttributes(): array
     {
         return ['name', 'email'];
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Pacientes';
     }
 }

@@ -2,18 +2,8 @@
 
 namespace App\Filament\Resources;
 
-use App\Enums\AppointmentStatusEnum;
-use App\Enums\AppointmentTypeEnum;
 use App\Filament\Resources\AppointmentResource\Pages;
 use App\Models\Appointment;
-use App\Models\Patient;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Hidden;
-use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
-use Filament\Forms\Components\TimePicker;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
@@ -35,49 +25,7 @@ class AppointmentResource extends Resource
 
     protected static ?string $slug = 'appointments';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    public static function form(Form $form): Form
-    {
-        return $form
-            ->schema([
-                Select::make('patient_id')
-                    ->label('Nombre')
-                    ->options(Patient::all()->pluck('name', 'id'))
-                    ->searchable(),
-
-                Hidden::make('user_id')
-                    ->default(auth()->id()),
-
-                DatePicker::make('date_at')
-                    ->label('Fecha'),
-
-                TimePicker::make('hour_in')
-                    ->label('Hora'),
-
-                Select::make('type')
-                    ->label('Tipo de Cita')
-                    ->options(AppointmentTypeEnum::class)
-                    ->required(),
-
-                TextArea::make('reason')
-                    ->label('Descripcion')
-                    ->required(),
-
-                Select::make('status')
-                    ->label('Estado de Cita')
-                    ->options(AppointmentStatusEnum::class)
-                    ->required(),
-
-                Placeholder::make('created_at')
-                    ->label('Creado')
-                    ->content(fn (?Appointment $record): string => $record?->created_at?->diffForHumans() ?? '-'),
-
-                Placeholder::make('updated_at')
-                    ->label('Actualizado')
-                    ->content(fn (?Appointment $record): string => $record?->updated_at?->diffForHumans() ?? '-'),
-            ]);
-    }
+    protected static ?string $navigationIcon = 'iconsax-two-calendar-edit';
 
     public static function table(Table $table): Table
     {
@@ -87,6 +35,7 @@ class AppointmentResource extends Resource
             ->columns([
                 //
                 TextColumn::make('patient.name')
+                    ->label(__('Paciente'))
                     ->searchable()
                     ->sortable(),
 
@@ -99,11 +48,14 @@ class AppointmentResource extends Resource
                     ->date(),
 
                 TextColumn::make('type')
+                    ->label('Tipo')
                     ->badge(),
 
-                TextColumn::make('reason'),
+                TextColumn::make('reason')
+                    ->label('Observaciones'),
 
                 TextColumn::make('status')
+                    ->label('Estado de Cita')
                     ->badge(),
 
             ])
@@ -149,5 +101,10 @@ class AppointmentResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Citas';
     }
 }
