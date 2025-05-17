@@ -18,7 +18,7 @@ class AppointmentFactory extends Factory
         return [
             'patient_id' => Patient::factory(),
             'user_id' => User::factory(),
-            'date_at' => $this->faker->date(),
+            'date_at' => $this->faker->dateTimeBetween('now +1 day', '+1 month'),
             'hour_in' => $this->faker->time(),
             'type' => $this->faker->randomElement(AppointmentTypeEnum::getValuesToArray()),
             'reason' => $this->faker->text(),
