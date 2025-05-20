@@ -47,9 +47,19 @@
 <!-- Welcome Content -->
 <div class="min-h-screen flex flex-col justify-center items-center px-6 pt-8 text-center">
     <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md max-w-lg">
+
+        <!-- Logo/Imagen principal -->
+        <div class="flex justify-center mb-6">
+            <img src="{{ asset('images/dentassist-logo.png') }}" alt="DentAssist Logo" class="h-32 w-auto object-contain">
+            <!-- Imagen de respaldo si la principal no se carga -->
+            <noscript>
+                <img src="/images/dentassist-logo.png" alt="DentAssist Logo" class="h-32 w-auto">
+            </noscript>
+        </div>
+
         <h2 class="text-4xl font-bold text-gray-800 dark:text-white mb-8">¡Bienvenido a DentAssist!</h2>
         <p class="text-xl text-gray-700 dark:text-gray-300">
-            Tu solución integral para la gestión de clínicas dentales.
+            Tu solución integral para la gestión de citas.
         </p>
         <p class="text-gray-600 dark:text-gray-400 mt-6">
             Estamos aquí para hacer que la administración de tu clínica dental sea más sencilla y eficiente.
