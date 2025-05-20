@@ -4,7 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\AppointmentResource\Pages;
 use App\Models\Appointment;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\BulkActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\DeleteBulkAction;
@@ -17,6 +19,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AppointmentResource extends Resource
@@ -62,12 +65,35 @@ class AppointmentResource extends Resource
             ->filters([
                 TrashedFilter::make(),
             ])
+
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
                 RestoreAction::make(),
                 ForceDeleteAction::make(),
+
+                Action::make('ProcessAction')
+                    ->button()
+                    ->label('Procesar')
+                    ->icon('heroicon-o-check-circle')
+                    ->color('success')
+                    ->requiresConfirmation()
+                    ->modalHeading('¿Iniciar esta cita?')
+                    ->modalSubheading('Esto marcará la cita como "iniciada".')
+                    ->action(function (\App\Models\Appointment $appointment) {
+                        $appointment->update(['status' => 'inProgress']);
+
+                        Notification::make()
+                            ->title('Cita Iniciada')
+                            ->success()
+                            ->send();
+
+                        return redirect(AppointmentResource::getUrl('process', ['record' => $appointment]));
+
+                    }),
+                // ->visible(fn (Model $record): bool => $record->status !== 'InProgress')
             ])
+
             ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),
@@ -91,7 +117,7 @@ class AppointmentResource extends Resource
             'index' => Pages\ListAppointments::route('/'),
             'create' => Pages\CreateAppointment::route('/create'),
             'edit' => Pages\EditAppointment::route('/{record}/edit'),
-
+            'process' => Pages\ProcessAppointment::route('/{record}/process'),
         ];
     }
 
