@@ -32,6 +32,11 @@ class ClinicPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Green,
             ])
+
+            ->favicon('/images/dentassist-logo.png')
+            ->brandLogo('/images/dentassist-logo.png')
+            ->brandLogoHeight('4rem')
+
             ->discoverResources(in: app_path('Filament/Clinic/Resources'), for: 'App\\Filament\\Clinic\\Resources')
             ->discoverPages(in: app_path('Filament/Clinic/Pages'), for: 'App\\Filament\\Clinic\\Pages')
             ->pages([

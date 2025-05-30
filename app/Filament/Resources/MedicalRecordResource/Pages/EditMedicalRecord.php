@@ -6,6 +6,7 @@ use App\Filament\Resources\MedicalRecordResource;
 use App\Models\MedicalRecord;
 use App\Models\Patient;
 use Filament\Actions;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
@@ -28,10 +29,40 @@ class EditMedicalRecord extends EditRecord
                 //                    ->options(Appointment::all()->pluck('id', 'id'))
                 //                    ->searchable(),
 
-                Select::make('patient_id')
-                    ->label('Paciente')
-                    ->options(Patient::all()->pluck('name', 'id'))
-                    ->disabled(true),
+                Fieldset::make('Paciente')
+                    ->relationship('patient')
+                    ->schema([
+                        Placeholder::make('patient_id')
+                            ->label('Nombre')
+                            ->content(fn($record) => $record->name)
+                            ->disabled(true)
+                            ->columnSpan(3),
+
+                        Placeholder::make('birth_at')
+                            ->label('Fecha de Nacimiento')
+                            ->content(fn ($record) => $record->birth_at->format('d/m/Y')),
+
+                        Placeholder::make('App\Models\Patient.marital_status')
+                            ->label('Estado Civil')
+                            ->content(fn ($record) => $record->marital_status->getLabel()),
+
+                        Placeholder::make('App\Models\Patient.gender')
+                            ->label('Genero')
+                            ->content(fn ($record) => $record->gender->getLabel()),
+
+                        Placeholder::make('phone')
+                            ->label('Telefono')
+                            ->content(fn ($record) => $record->phone),
+
+                        Placeholder::make('address')
+                            ->label('Direccion')
+                            ->content(fn ($record) => $record->address),
+                    ])
+                    ->mutateRelationshipDataBeforeCreateUsing(function (array $data) {
+                        $data['patient_id'] = $this->record->patient_id;
+
+                        return $data;
+                    }),
 
                 Hidden::make('user_id')
                     ->default(auth()->id()),
@@ -46,10 +77,20 @@ class EditMedicalRecord extends EditRecord
 
                 FileUpload::make('xray')
                     ->label('Rayos X')
+                    ->acceptedFileTypes([
+                        'application/pdf',
+                        'image/jpeg',
+                        'image/png',
+                    ])
                     ->required(),
 
                 FileUpload::make('photo')
                     ->label('Fotos')
+                    ->acceptedFileTypes([
+                        'application/pdf',
+                        'image/jpeg',
+                        'image/png',
+                    ])
                     ->required(),
 
                 Placeholder::make('created_at')

@@ -21,8 +21,8 @@ return new class extends Migration
             $table->foreignIdFor(User::class);
             $table->string('diagnosis');
             $table->string('treatment');
-            $table->string('xray');
-            $table->string('photo');
+            $table->string('xray')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
