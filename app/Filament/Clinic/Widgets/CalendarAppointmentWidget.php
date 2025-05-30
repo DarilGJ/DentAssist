@@ -27,7 +27,7 @@ class CalendarAppointmentWidget extends FullCalendarWidget
                 'title' => "Cita con {$appointment->patient->name}",
                 'start' => Carbon::parse("{$appointment->date_at->format('Y-m-d')} {$appointment->hour_in}"),
                 'end' => Carbon::parse("{$appointment->date_at->format('Y-m-d')} {$appointment->hour_in}")->addMinutes(30),
-                // 'url' => AppointmentResource::getUrl(name: 'edit', parameters: ['record' => $appointment->id]),
+                'url' => AppointmentResource::getUrl(name: 'process', parameters: ['record' => $appointment->id]),
             ])
             ->all();
     }
