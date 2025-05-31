@@ -12,28 +12,12 @@ class InitProjectDataSeeder extends Seeder
 {
     public function run(): void
     {
-        // Admin
-        $admin = User::factory()->admin()->create([
-            'name' => 'Admin',
-            'email' => 'admin@dev.com',
-        ]);
-
-        // Patient and Clinic accounts
-        User::factory()->create([
-            'role' => RoleEnum::patient,
-            'email' => 'patient@dev.com',
-        ]);
-
-        User::factory()->create([
-            'role' => RoleEnum::clinic,
-            'email' => 'clinic@dev.com',
-        ]);
-
-        // Appointments
-        Appointment::factory()
-            ->count(50)
-            ->for($admin)
-            ->has(Patient::factory()->count(3))
-            ->create();
+        if (!User::where('email', $email = 'admin@dev.com')->exists()) {
+            User::factory()->create([
+                'name' => 'Admin',
+                'email' => $email,
+                'role' => RoleEnum::admin,
+            ]);
+        }
     }
 }
