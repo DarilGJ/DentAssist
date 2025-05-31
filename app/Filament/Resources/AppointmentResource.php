@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\AppointmentStatusEnum;
 use App\Filament\Resources\AppointmentResource\Pages;
 use App\Models\Appointment;
 use Filament\Notifications\Notification;
@@ -19,6 +20,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AppointmentResource extends Resource
@@ -80,15 +82,19 @@ class AppointmentResource extends Resource
                     ->modalSubheading('Esto marcará la cita como "iniciada".')
                     ->action(function (\App\Models\Appointment $appointment) {
                         $appointment->update(['status' => 'inProgress']);
-
                         Notification::make()
                             ->title('Cita Iniciada')
                             ->success()
                             ->send();
 
                         return redirect(AppointmentResource::getUrl('process', ['record' => $appointment]));
-
-                    }),
+                    })
+                    ->visible(fn (Model $record): bool => in_array($record->status, [
+                        AppointmentStatusEnum::Scheduled,
+                        AppointmentStatusEnum::Rescheduled,
+                        AppointmentStatusEnum::Confirmed,
+                        AppointmentStatusEnum::InProgress,
+                    ])),
             ])
 
             ->bulkActions([
