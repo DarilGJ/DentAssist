@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->string('token');
             $table->foreignId('appointment_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
