@@ -4,13 +4,11 @@ namespace App\Filament\Resources\MedicalRecordResource\Pages;
 
 use App\Filament\Resources\MedicalRecordResource;
 use App\Models\MedicalRecord;
-use App\Models\Patient;
 use Filament\Actions;
 use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Placeholder;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
 use Filament\Resources\Pages\EditRecord;
@@ -34,7 +32,7 @@ class EditMedicalRecord extends EditRecord
                     ->schema([
                         Placeholder::make('patient_id')
                             ->label('Nombre')
-                            ->content(fn($record) => $record->name)
+                            ->content(fn ($record) => $record->name)
                             ->disabled(true)
                             ->columnSpan(3),
 
