@@ -19,7 +19,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class AppointmentResource extends Resource
@@ -36,7 +35,6 @@ class AppointmentResource extends Resource
         return $table
 
             ->columns([
-                //
                 TextColumn::make('patient.name')
                     ->label(__('Paciente'))
                     ->searchable()
@@ -91,7 +89,6 @@ class AppointmentResource extends Resource
                         return redirect(AppointmentResource::getUrl('process', ['record' => $appointment]));
 
                     }),
-                // ->visible(fn (Model $record): bool => $record->status !== 'InProgress')
             ])
 
             ->bulkActions([

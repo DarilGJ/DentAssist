@@ -21,6 +21,7 @@ class ConfigurationDatabaseCommand extends Command
         if ($this->isSqliteDatabase()) {
             $this->handleSqliteSetup();
             $this->info('SQLite database setup completed successfully.');
+
             return;
         }
 
@@ -48,7 +49,7 @@ class ConfigurationDatabaseCommand extends Command
     {
         $sqlitePath = database_path('database.sqlite');
 
-        if (!file_exists($sqlitePath)) {
+        if (! file_exists($sqlitePath)) {
             touch($sqlitePath);
             $this->info("SQLite database file created at: {$sqlitePath}");
         } else {
@@ -65,8 +66,9 @@ class ConfigurationDatabaseCommand extends Command
 
         // Ask if user wants to modify existing configuration
         if ($this->hasExistingDatabaseConfig($currentConfig)) {
-            if (!$this->shouldModifyExistingConfig($currentConfig)) {
+            if (! $this->shouldModifyExistingConfig($currentConfig)) {
                 $this->info('Database configuration unchanged.');
+
                 return;
             }
         }
@@ -99,7 +101,7 @@ class ConfigurationDatabaseCommand extends Command
      */
     private function hasExistingDatabaseConfig(array $config): bool
     {
-        return !empty($config['database']) || !empty($config['username']) || !empty($config['host']);
+        return ! empty($config['database']) || ! empty($config['username']) || ! empty($config['host']);
     }
 
     /**
@@ -137,8 +139,9 @@ class ConfigurationDatabaseCommand extends Command
     {
         $envFile = base_path('.env');
 
-        if (!file_exists($envFile)) {
+        if (! file_exists($envFile)) {
             $this->error('.env file not found!');
+
             return;
         }
 
@@ -191,6 +194,6 @@ class ConfigurationDatabaseCommand extends Command
         }
 
         // If the variable doesn't exist, add it at the end
-        return $envContent . "\n{$replacement}";
+        return $envContent."\n{$replacement}";
     }
 }
