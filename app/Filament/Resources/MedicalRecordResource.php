@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\MedicalRecordResource\Pages;
 use App\Models\MedicalRecord;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Actions\BulkActionGroup;
@@ -64,6 +65,12 @@ class MedicalRecordResource extends Resource
                 DeleteAction::make(),
                 RestoreAction::make(),
                 ForceDeleteAction::make(),
+                Tables\Actions\Action::make('descargar_expediente')
+                    ->label('Descargar')
+                    ->color('info')
+                    ->action(function (MedicalRecord $record) {
+                        return static::descargarExpediente($record);
+                    }),
             ])
             ->bulkActions([
                 BulkActionGroup::make([
@@ -101,5 +108,23 @@ class MedicalRecordResource extends Resource
     public static function getModelLabel(): string
     {
         return 'Expedientes Medicos';
+    }
+
+    public static function descargarExpediente(MedicalRecord $medicalRecord)
+    {
+        $pdf = Pdf::loadView('expediente', compact('medicalRecord'))
+            ->setPaper('a4', 'portrait')
+            ->setOptions([
+                'defaultFont' => 'DejaVu Sans',
+                'isHtml5ParserEnabled' => true,
+                'isRemoteEnabled' => false,
+            ]);
+
+        $filename = 'expediente-'.$medicalRecord->patient->name.'-cita-'.$medicalRecord->appointment->id.'-'.now()->format('Y-m-d').'.pdf';
+
+        return response()->streamDownload(
+            fn () => print ($pdf->output()),
+            $filename
+        );
     }
 }
