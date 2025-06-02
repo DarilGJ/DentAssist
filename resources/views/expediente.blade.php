@@ -227,8 +227,8 @@
 <div class="header">
     <h1>EXPEDIENTE MÉDICO</h1>
     <div class="clinic-info">
-        <strong>Centro Médico Dental</strong><br>
-        Dirección de la clínica | Teléfono: (000) 000-0000<br>
+        <strong>Dental Bol</strong><br>
+        8a Avenida 3-57 zona 1, Salama, Baja Verapaz | Teléfono: (502) 4288-1590<br>
         Email: info@clinica.com
     </div>
     <div class="clinic-info" style="margin-top: 12px;">
@@ -240,8 +240,8 @@
     <div class="patient-name">{{ $medicalRecord->patient->name }}</div>
     <div class="appointment-info">
         <div class="appointment-detail">
-            <strong>No. de Cita:</strong> {{ $medicalRecord->appointment->id }}<br>
-            <strong>Fecha de Cita:</strong> {{ $medicalRecord->appointment->date ?? 'No especificada' }}
+            <strong>No. de Cita:</strong> {{ $medicalRecord->appointment->id ?? " 0 " }}<br>
+            <strong>Fecha de Cita:</strong> {{ $medicalRecord->appointment->date_at ?? 'No especificada' }}
         </div>
         <div class="appointment-detail">
             <strong>Expediente generado:</strong> {{ now()->format('d/m/Y H:i:s') }}<br>
@@ -257,7 +257,7 @@
         <div class="info-grid">
             <div class="info-row">
                 <div class="info-label">Nombre Completo</div>
-                <div class="info-value">{{ $medicalRecord->patient->name }}</div>
+                <div class="info-value">{{ $medicalRecord->patient->name }} {{$medicalRecord->patient->surname}}</div>
             </div>
             @if(isset($medicalRecord->patient->email))
                 <div class="info-row">
@@ -271,12 +271,12 @@
                     <div class="info-value">{{ $medicalRecord->patient->phone }}</div>
                 </div>
             @endif
-            @if(isset($medicalRecord->patient->date_of_birth))
+            @if(isset($medicalRecord->patient->birth_at))
                 <div class="info-row">
                     <div class="info-label">Fecha de Nacimiento</div>
                     <div class="info-value">
-                        {{ $medicalRecord->patient->date_of_birth->format('d/m/Y') }}
-                        ({{ $medicalRecord->patient->date_of_birth->age }} años)
+                        {{ $medicalRecord->patient->birth_at->format('d/m/Y') }}
+                        ({{ $medicalRecord->patient->birth_at->age }} años)
                     </div>
                 </div>
             @endif
@@ -340,22 +340,22 @@
                 <div class="info-label">Número de Cita</div>
                 <div class="info-value">{{ $medicalRecord->appointment->id }}</div>
             </div>
-            @if(isset($medicalRecord->appointment->date))
+            @if(isset($medicalRecord->appointment->date_at))
                 <div class="info-row">
                     <div class="info-label">Fecha de la Cita</div>
-                    <div class="info-value">{{ $medicalRecord->appointment->date }}</div>
+                    <div class="info-value">{{ $medicalRecord->appointment->date_at }}</div>
                 </div>
             @endif
-            @if(isset($medicalRecord->appointment->time))
+            @if(isset($medicalRecord->appointment->hour_in))
                 <div class="info-row">
                     <div class="info-label">Hora de la Cita</div>
-                    <div class="info-value">{{ $medicalRecord->appointment->time }}</div>
+                    <div class="info-value">{{ $medicalRecord->appointment->hour_in }}</div>
                 </div>
             @endif
             @if(isset($medicalRecord->appointment->status))
                 <div class="info-row">
                     <div class="info-label">Estado de la Cita</div>
-                    <div class="info-value">{{ $medicalRecord->appointment->status }}</div>
+                    <div class="info-value">{{ $medicalRecord->appointment->status->getlabel()}}</div>
                 </div>
             @endif
         </div>
@@ -367,8 +367,8 @@
     <div class="signature-box">
         <div class="signature-line"></div>
         <strong>Firma del Médico</strong><br>
-        Dr./Dra. _____________________<br>
-        Registro Médico: ______________<br>
+        Dra. Marisa Bol Leon<br>
+        Registro Médico: {{$medicalRecord->id}}<br>
         Fecha: {{ now()->format('d/m/Y') }}
     </div>
 
