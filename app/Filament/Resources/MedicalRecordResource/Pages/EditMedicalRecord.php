@@ -30,11 +30,38 @@ class EditMedicalRecord extends EditRecord
                 Fieldset::make('Paciente')
                     ->relationship('patient')
                     ->schema([
-                        Placeholder::make('patient_id')
-                            ->label('Nombre')
+                        Placeholder::make('name')
+                            ->label('Nombres')
                             ->content(fn ($record) => $record->name)
+                            ->disabled(true),
+
+                        Placeholder::make('surname')
+                            ->label('Apellidos')
+                            ->content(fn ($record) => $record->surname)
+                            ->disabled(true),
+
+                        Placeholder::make('allergies')
+                            ->label('Alergias')
+                            ->content(fn ($record) => $record->allergies)
                             ->disabled(true)
                             ->columnSpan(3),
+
+                        Placeholder::make('email')
+                            ->label('Email')
+                            ->content(fn ($record) => $record->email)
+                            ->disabled(true),
+
+                        Placeholder::make('phone')
+                            ->label('Telefono')
+                            ->content(fn ($record) => $record->phone),
+
+                        Placeholder::make('App\Models\Patient.gender')
+                            ->label('Genero')
+                            ->content(fn ($record) => $record->gender->getLabel()),
+
+                        Placeholder::make('address')
+                            ->label('Direccion')
+                            ->content(fn ($record) => $record->address),
 
                         Placeholder::make('birth_at')
                             ->label('Fecha de Nacimiento')
@@ -44,17 +71,6 @@ class EditMedicalRecord extends EditRecord
                             ->label('Estado Civil')
                             ->content(fn ($record) => $record->marital_status->getLabel()),
 
-                        Placeholder::make('App\Models\Patient.gender')
-                            ->label('Genero')
-                            ->content(fn ($record) => $record->gender->getLabel()),
-
-                        Placeholder::make('phone')
-                            ->label('Telefono')
-                            ->content(fn ($record) => $record->phone),
-
-                        Placeholder::make('address')
-                            ->label('Direccion')
-                            ->content(fn ($record) => $record->address),
                     ])
                     ->mutateRelationshipDataBeforeCreateUsing(function (array $data) {
                         $data['patient_id'] = $this->record->patient_id;
@@ -65,31 +81,34 @@ class EditMedicalRecord extends EditRecord
                 Hidden::make('user_id')
                     ->default(auth()->id()),
 
-                TextArea::make('diagnosis')
-                    ->label('Diagnostico')
-                    ->required(),
+                Fieldset::make('Expediente')
+                    ->schema([
+                        TextArea::make('diagnosis')
+                            ->label('Diagnostico')
+                            ->required(),
 
-                TextArea::make('treatment')
-                    ->label('Tratamiento')
-                    ->required(),
+                        TextArea::make('treatment')
+                            ->label('Tratamiento')
+                            ->required(),
 
-                FileUpload::make('xray')
-                    ->label('Rayos X')
-                    ->acceptedFileTypes([
-                        'application/pdf',
-                        'image/jpeg',
-                        'image/png',
-                    ])
-                    ->required(),
+                        FileUpload::make('xray')
+                            ->label('Rayos X')
+                            ->acceptedFileTypes([
+                                'application/pdf',
+                                'image/jpeg',
+                                'image/png',
+                            ])
+                            ->required(),
 
-                FileUpload::make('photo')
-                    ->label('Fotos')
-                    ->acceptedFileTypes([
-                        'application/pdf',
-                        'image/jpeg',
-                        'image/png',
-                    ])
-                    ->required(),
+                        FileUpload::make('photo')
+                            ->label('Fotos')
+                            ->acceptedFileTypes([
+                                'application/pdf',
+                                'image/jpeg',
+                                'image/png',
+                            ])
+                            ->required(),
+                    ]),
 
                 Placeholder::make('created_at')
                     ->label('Creado')

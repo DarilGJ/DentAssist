@@ -51,11 +51,14 @@ class MedicalRecordResource extends Resource
                 TextColumn::make('treatment')
                     ->label('Tratamiento'),
 
-                TextColumn::make('xray')
-                    ->label('Rayos X'),
+                Tables\Columns\ImageColumn::make('xray')
+                    ->label('Rayos X')
+                    //->defaultImageUrl(url('storage'))
+                    ->stacked(),
 
-                TextColumn::make('photo')
-                    ->label('Fotos'),
+                Tables\Columns\ImageColumn::make('photo')
+                    ->label('Fotos')
+                    ->stacked(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -117,10 +120,10 @@ class MedicalRecordResource extends Resource
             ->setOptions([
                 'defaultFont' => 'DejaVu Sans',
                 'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled' => false,
+                'isRemoteEnabled' => true,
             ]);
 
-        $filename = 'expediente-'.$medicalRecord->patient->name.'-cita-'.$medicalRecord->appointment->id.'-'.now()->format('Y-m-d').'.pdf';
+        $filename = 'expediente-'.$medicalRecord->patient->name.'-'.now()->format('Y-m-d').'.pdf';
 
         return response()->streamDownload(
             fn () => print ($pdf->output()),
