@@ -1,5 +1,3 @@
-?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -306,26 +304,16 @@
 <div class="section">
     <div class="section-title">ESTUDIOS Y DOCUMENTACIÓN</div>
     <div class="additional-info">
-        <div class="additional-col">
-            <strong>Rayos X:</strong><br>
-            <span class="status-badge {{ $medicalRecord->xray == 'Si' ? 'status-yes' : 'status-no' }}">
-                    {{ $medicalRecord->xray ?: 'No' }}
-                </span>
-            @if($medicalRecord->xray == 'Si')
-                <div style="margin-top: 8px; font-size: 10px; color: #666;">
-                    Se requiere adjuntar las imágenes radiográficas correspondientes.
-                </div>
+        <div style="text-align: center;">
+            <strong>Rayos X</strong><br>
+            @if($medicalRecord->xray)
+                <img src="{{ asset("/storage/$medicalRecord->xray") }}" alt="{{$medicalRecord->xray}}" width="600px">
             @endif
         </div>
-        <div class="additional-col">
-            <strong>Fotografías Clínicas:</strong><br>
-            <span class="status-badge {{ $medicalRecord->photo == 'Si' ? 'status-yes' : 'status-no' }}">
-                    {{ $medicalRecord->photo ?: 'No' }}
-                </span>
-            @if($medicalRecord->photo == 'Si')
-                <div style="margin-top: 8px; font-size: 10px; color: #666;">
-                    Se requiere adjuntar las fotografías clínicas correspondientes.
-                </div>
+        <div style="text-align: center;">
+            <strong>Fotografías Clínicas</strong><br>
+            @if($medicalRecord->photo)
+                <img src="{{ asset("/storage/$medicalRecord->photo") }}" alt="{{$medicalRecord->photo}}" width="600px">
             @endif
         </div>
     </div>

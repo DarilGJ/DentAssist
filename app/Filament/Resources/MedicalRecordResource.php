@@ -53,6 +53,7 @@ class MedicalRecordResource extends Resource
 
                 Tables\Columns\ImageColumn::make('xray')
                     ->label('Rayos X')
+                    //->defaultImageUrl(url('storage'))
                     ->stacked(),
 
                 Tables\Columns\ImageColumn::make('photo')
@@ -119,7 +120,7 @@ class MedicalRecordResource extends Resource
             ->setOptions([
                 'defaultFont' => 'DejaVu Sans',
                 'isHtml5ParserEnabled' => true,
-                'isRemoteEnabled' => false,
+                'isRemoteEnabled' => true,
             ]);
 
         $filename = 'expediente-'.$medicalRecord->patient->name.'-'.now()->format('Y-m-d').'.pdf';
