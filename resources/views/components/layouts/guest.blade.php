@@ -20,6 +20,15 @@
     </header>
 
     {{ $slot }}
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-gray-800 py-4 shadow-md">
+        <div class="container mx-auto">
+            <p class="text-center text-gray-500 dark:text-gray-400">
+                &copy; {{ date('Y') }} {{config('app.name')}}. Todos los derechos reservados.
+            </p>
+        </div>
+    </footer>
 </body>
 <script>
     const toggleBtn = document.getElementById('toggleDark');
