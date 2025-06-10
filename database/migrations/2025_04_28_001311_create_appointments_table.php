@@ -25,6 +25,7 @@ return new class extends Migration
             $table->enum('type', AppointmentTypeEnum::getValuesToArray());
             $table->string('reason');
             $table->enum('status', AppointmentStatusEnum::getValuesToArray());
+            $table->timestamp('confirmed_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

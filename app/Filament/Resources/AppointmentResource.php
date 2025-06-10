@@ -2,8 +2,10 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\AppointmentStatusEnum;
 use App\Filament\Resources\AppointmentResource\Pages;
 use App\Models\Appointment;
+use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables\Actions\Action;
@@ -21,6 +23,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\URL;
 
 class AppointmentResource extends Resource
 {
@@ -34,9 +37,7 @@ class AppointmentResource extends Resource
     {
 
         return $table
-
             ->columns([
-                //
                 TextColumn::make('patient.name')
                     ->label(__('Paciente'))
                     ->searchable()
@@ -65,7 +66,6 @@ class AppointmentResource extends Resource
             ->filters([
                 TrashedFilter::make(),
             ])
-
             ->actions([
                 EditAction::make(),
                 DeleteAction::make(),
@@ -82,18 +82,49 @@ class AppointmentResource extends Resource
                     ->modalSubheading('Esto marcará la cita como "iniciada".')
                     ->action(function (\App\Models\Appointment $appointment) {
                         $appointment->update(['status' => 'inProgress']);
-
                         Notification::make()
                             ->title('Cita Iniciada')
                             ->success()
                             ->send();
 
                         return redirect(AppointmentResource::getUrl('process', ['record' => $appointment]));
+                    })
+                    ->visible(fn(Model $record): bool => in_array($record->status, [
+                        AppointmentStatusEnum::Scheduled,
+                        AppointmentStatusEnum::Rescheduled,
+                        AppointmentStatusEnum::Confirmed,
+                        AppointmentStatusEnum::InProgress,
+                    ])),
+                Action::make('generateShareLink')
+                    ->label('Link cita')
+                    ->icon('heroicon-o-share')
+                    ->color('success')
+                    ->form(function ($record) {
 
-                    }),
-                // ->visible(fn (Model $record): bool => $record->status !== 'InProgress')
+                        $record->confirmations()->updateOrCreate(
+                            ['appointment_id' => $record->id],
+                            ['link' => $link = URL::signedRoute('appointments.confirmation'),
+                                'hash' => url($link)]
+                        );
+
+                        return [
+                            TextInput::make('generated_link')
+                                ->label('Link Generado')
+                                ->default($link)
+                                ->readOnly()
+                        ];
+                    })
+                    ->modalHeading('Link de Compartir')
+                    ->modalSubheading('Copia este link para compartir el recurso')
+                    ->modalSubmitAction(false)
+                    ->modalCancelActionLabel('Cerrar')
+                    ->visible(fn(Model $record): bool => in_array($record->status, [
+                        AppointmentStatusEnum::Scheduled,
+                        AppointmentStatusEnum::Rescheduled,
+                        AppointmentStatusEnum::Confirmed,
+                        AppointmentStatusEnum::InProgress,
+                    ]))
             ])
-
             ->bulkActions([
                 BulkActionGroup::make([
                     DeleteBulkAction::make(),

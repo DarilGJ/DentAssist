@@ -47,4 +47,9 @@ class Appointment extends Model
     {
         return $this->hasOne(MedicalRecord::class);
     }
+
+    public function confirmations(): HasOne
+    {
+        return $this->hasOne(AppointmentConfirmations::class);
+    }
 }
