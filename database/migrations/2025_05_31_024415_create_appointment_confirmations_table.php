@@ -10,7 +10,8 @@ return new class extends Migration
     {
         Schema::create('appointment_confirmations', function (Blueprint $table) {
             $table->id();
-            $table->string('token');
+            $table->string('hash')->index()->unique();
+            $table->string('link');
             $table->foreignId('appointment_id');
             $table->timestamps();
             $table->softDeletes();

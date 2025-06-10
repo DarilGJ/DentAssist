@@ -19,4 +19,6 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
+Route::get('links', fn() => dd('aqui'))->name('appointments.confirmation');
+
 require __DIR__.'/auth.php';

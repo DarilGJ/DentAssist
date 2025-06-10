@@ -11,7 +11,8 @@ class AppointmentConfirmations extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'token',
+        'link',
+        'hash',
         'appointment_id',
     ];
 
