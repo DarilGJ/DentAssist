@@ -307,13 +307,13 @@
         <div style="text-align: center;">
             <strong>Rayos X</strong><br>
             @if($medicalRecord->xray)
-                <img src="{{ asset("/storage/$medicalRecord->xray") }}" alt="{{$medicalRecord->xray}}" width="600px">
+                <img src="{{ asset("/storage/$medicalRecord->xray") }}" alt="{{$medicalRecord->xray}}" width="500px">
             @endif
         </div>
         <div style="text-align: center;">
             <strong>Fotografías Clínicas</strong><br>
             @if($medicalRecord->photo)
-                <img src="{{ asset("/storage/$medicalRecord->photo") }}" alt="{{$medicalRecord->photo}}" width="600px">
+                <img src="{{ asset("/storage/$medicalRecord->photo") }}" alt="{{$medicalRecord->photo}}" width="500px">
             @endif
         </div>
     </div>

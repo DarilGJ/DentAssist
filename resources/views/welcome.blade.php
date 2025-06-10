@@ -68,7 +68,7 @@
         @if (Route::has('login'))
             <div class="mt-8">
                 @auth
-                    <a href="{{ url('/dashboard') }}" class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-lg transition duration-300">App</a>
+                    <a href="{{ url('/app') }}" class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-bold   py-2 px-6 rounded-lg transition duration-300">App</a>
                     @if(auth()->user()->role == \App\Enums\RoleEnum::admin
                             || auth()->user()->role == \App\Enums\RoleEnum::clinic)
                         <a href="{{ url('/clinic') }}" class="bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 text-white font-bold py-2 px-6 rounded-lg transition duration-300">Clinic</a>
@@ -83,6 +83,7 @@
                     @if (Route::has('register'))
                         <a href="{{ route('register') }}" class="bg-white hover:bg-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 text-blue-600 dark:text-white border border-blue-600 dark:border-gray-600 font-bold py-2 px-6 rounded-lg ml-4 transition duration-300">Registrarse</a>
                     @endif
+
                 @endauth
             </div>
         @endif

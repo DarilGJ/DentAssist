@@ -8,9 +8,12 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::view('/welcome', 'welcome')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::view('/app', 'app')
+    ->name('app');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -21,3 +24,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
