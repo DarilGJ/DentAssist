@@ -48,9 +48,13 @@ class PatientResource extends Resource
                     ->label('Apellido')
                     ->required(),
 
-                DatePicker::make('birth_at')
-                    ->label('Fecha de Nacimiento')
-                    ->maxDate(now())
+                TextInput::make('allergies')
+                    ->label('Alergias')
+                    ->default('No')
+                    ->columnSpan(3),
+
+                TextInput::make('email')
+                    ->email()
                     ->required(),
 
                 TextInput::make('phone')
@@ -64,22 +68,19 @@ class PatientResource extends Resource
                     ->options(GenderEnum::class)
                     ->required(),
 
+                TextInput::make('address')
+                    ->label('Direccion')
+                    ->default('Ciudad'),
+
+                DatePicker::make('birth_at')
+                    ->label('Fecha de Nacimiento')
+                    ->maxDate(now())
+                    ->required(),
+
                 Select::make('marital_status')
                     ->label('Estado Civil')
                     ->options(MaritalStatusEnum::class)
                     ->default('single'),
-
-                TextInput::make('email')
-                    ->email()
-                    ->required(),
-
-                TextInput::make('allergies')
-                    ->label('Alergias')
-                    ->default('No'),
-
-                TextInput::make('address')
-                    ->label('Direccion')
-                    ->default('Ciudad'),
 
                 Placeholder::make('created_at')
                     ->label('Creado')
