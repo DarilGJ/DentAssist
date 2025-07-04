@@ -13,14 +13,14 @@ return new class extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('surname');
+            $table->string('surname')->nullable();
             $table->date('birth_at');
             $table->string('phone');
             $table->enum('gender', GenderEnum::getValuesToArray());
             $table->enum('marital_status', MaritalStatusEnum::getValuesToArray());
             $table->string('email');
-            $table->string('allergies');
-            $table->string('address');
+            $table->string('allergies')->nullable();
+            $table->string('address')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

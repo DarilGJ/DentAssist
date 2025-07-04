@@ -49,32 +49,85 @@ class ProcessAppointment extends EditRecord
     {
         return $form
             ->schema([
-                Select::make('patient_id')
-                    ->label('Paciente')
-                    ->options(Patient::all()->pluck('name', 'id'))
-                    ->disabled(true),
+                Fieldset::make('Paciente')
+                    ->relationship('patient')
+                    ->schema([
+                        Placeholder::make('name')
+                            ->label('Nombres')
+                            ->content(fn ($record) => $record->name)
+                            ->disabled(true),
+
+                        Placeholder::make('surname')
+                            ->label('Apellidos')
+                            ->content(fn ($record) => $record->surname)
+                            ->disabled(true),
+
+                        Placeholder::make('allergies')
+                            ->label('Alergias')
+                            ->content(fn ($record) => $record->allergies)
+                            ->disabled(true)
+                            ->columnSpan(3),
+
+                        Placeholder::make('email')
+                            ->label('Email')
+                            ->content(fn ($record) => $record->email)
+                            ->disabled(true),
+
+                        Placeholder::make('phone')
+                            ->label('Telefono')
+                            ->content(fn ($record) => $record->phone),
+
+                        Placeholder::make('App\Models\Patient.gender')
+                            ->label('Genero')
+                            ->content(fn ($record) => $record->gender->getLabel()),
+
+                        Placeholder::make('address')
+                            ->label('Direccion')
+                            ->content(fn ($record) => $record->address),
+
+                        Placeholder::make('birth_at')
+                            ->label('Fecha de Nacimiento')
+                            ->content(fn ($record) => $record->birth_at->format('d/m/Y')),
+
+                        Placeholder::make('App\Models\Patient.marital_status')
+                            ->label('Estado Civil')
+                            ->content(fn ($record) => $record->marital_status->getLabel()),
+
+                    ])
+                    ->mutateRelationshipDataBeforeCreateUsing(function (array $data) {
+                        $data['patient_id'] = $this->record->patient_id;
+
+                        return $data;
+                    }),
 
                 Hidden::make('user_id')
                     ->default(auth()->id()),
 
-                DatePicker::make('date_at')
-                    ->label('Fecha')
-                    ->disabled(true),
+                Fieldset::make('Cita')
+                    ->schema([
+                        DatePicker::make('date_at')
+                            ->minDate(now())
+                            ->label('Fecha')
+                            ->disabled(true)
+                            ->required(),
 
-                Placeholder::make('patient.birth_at')
-                    ->content(fn ($record) => $record->patient->birth_at->format('d/m/Y')),
+                        TimePicker::make('hour_in')
+                            ->label('Hora')
+                            ->disabled(true)
+                            ->required(),
 
-                TimePicker::make('hour_in')
-                    ->label('Hora')
-                    ->required(),
+                        Select::make('type')
+                            ->label('Tipo de Cita')
+                            ->options(AppointmentTypeEnum::class)
+                            ->disabled(true)
+                            ->required(),
 
-                Select::make('type')
-                    ->label('Tipo de Cita')
-                    ->options(AppointmentTypeEnum::class)
-                    ->required(),
+                        TextArea::make('reason')
+                            ->label('Descripcion')
+                            ->disabled(true)
+                            ->columnSpan(3),
 
-                TextArea::make('reason')
-                    ->label('Descripcion'),
+                    ]),
 
                 Fieldset::make('Agregar Expendiente')
                     ->relationship('medicalRecord')
@@ -121,3 +174,4 @@ class ProcessAppointment extends EditRecord
             ]);
     }
 }
+
