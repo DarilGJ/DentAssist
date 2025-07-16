@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('date_at');
             $table->time('hour_in');
             $table->enum('type', AppointmentTypeEnum::getValuesToArray());
-            $table->string('reason');
+            $table->string('reason')->nullable();
             $table->enum('status', AppointmentStatusEnum::getValuesToArray());
             $table->timestamp('confirmed_at')->nullable();
             $table->timestamps();
